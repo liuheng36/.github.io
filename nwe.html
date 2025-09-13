@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>八次相遇的故事</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        love: {
+                            pink: '#FFCCD5',
+                            peach: '#FFE0B2',
+                            cream: '#FFF8E1',
+                            mint: '#E0F7FA',
+                            lavender: '#F3E5F5'
+                        }
+                    },
+                    fontFamily: {
+                        love: ['"Dancing Script"', 'cursive', 'sans-serif'],
+                        main: ['"Noto Sans SC"', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .page {
+                @apply h-screen w-full flex flex-col md:flex-row items-center justify-center transition-transform duration-700 ease-in-out absolute top-0 left-0 overflow-hidden p-6;
+            }
+            .text-shadow {
+                text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+            }
+            .page-indicator {
+                @apply w-2 h-2 rounded-full bg-gray-600/50 cursor-pointer transition-all duration-300;
+            }
+            .page-indicator.active {
+                @apply w-8 bg-love-pink;
+            }
+            .nav-btn {
+                @apply fixed z-40 bg-white/70 hover:bg-white text-gray-700 w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 shadow-md backdrop-blur-sm;
+            }
+            .photo-frame {
+                @apply rounded-lg shadow-xl overflow-hidden transform transition-transform duration-500 hover:scale-105 border-4 border-white;
+            }
+            .page-title {
+                @apply text-4xl md:text-6xl lg:text-7xl font-love font-bold mb-6 text-gray-800;
+            }
+            .page-content {
+                @apply text-lg md:text-xl text-gray-700 max-w-lg mx-auto leading-relaxed;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-love-cream overflow-hidden">
+    <!-- 背景音乐 -->
+    <audio id="bgMusic" loop preload="metadata">
+        <source src="https://files.catbox.moe/qk1l7w.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- 翻页导航按钮 -->
+    <button id="prevBtn" class="nav-btn left-4 top-1/2 -translate-y-1/2">
+        <i class="fa fa-angle-left text-2xl"></i>
+    </button>
+    <button id="nextBtn" class="nav-btn right-4 top-1/2 -translate-y-1/2">
+        <i class="fa fa-angle-right text-2xl"></i>
+    </button>
+    
+    <!-- 音乐控制 -->
+    <button id="musicToggle" class="fixed top-4 right-4 z-40 bg-white/70 hover:bg-white text-gray-700 w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 shadow-md backdrop-blur-sm">
+        <i class="fa fa-music"></i>
+    </button>
+
+    <!-- 页码指示器 -->
+    <div class="fixed bottom-8 left-0 right-0 z-40 flex justify-center space-x-2">
+        <div class="page-indicator active" data-page="0"></div>
+        <div class="page-indicator" data-page="1"></div>
+        <div class="page-indicator" data-page="2"></div>
+        <div class="page-indicator" data-page="3"></div>
+        <div class="page-indicator" data-page="4"></div>
+        <div class="page-indicator" data-page="5"></div>
+        <div class="page-indicator" data-page="6"></div>
+        <div class="page-indicator" data-page="7"></div>
+    </div>
+
+    <!-- 第1页：第一次相遇 -->
+    <div class="page" data-page="0" style="background-color: #FFF8E1;">
+        <div class="absolute inset-0 z-0 opacity-20">
+            <img src="https://picsum.photos/id/106/1920/1080" alt="柔和背景" class="w-full h-full object-cover">
+        </div>
+        <div class="container z-10 text-center md:w-1/2 mb-8 md:mb-0">
+            <h1 class="page-title">第一次相遇</h1>
+            <p class="page-content mb-8">
+                朋友聚会上的偶然相遇，你的笑容像春日阳光一样温暖。简单的问候，却让我记忆犹新。那一天，我记住了你的名字。
+            </p>
+            <div class="text-gray-600 font-medium">
+                <p>2023年3月14日 · 咖啡馆</p>
+            </div>
+        </div>
+        <div class="z-10 md:w-1/2 flex justify-center">
+            <div class="photo-frame w-full max-w-md">
+                <img src="https://s21.ax1x.com/2025/09/14/pVWITNd.png" alt="第一次相遇的场景" class="w-full h-auto">
+            </div>
+        </div>
+    </div>
+
+    <!-- 第2页：第二次见面 -->
+    <div class="page translate-x-full" data-page="1" style="background-color: #FFE0B2;">
+        <div class="absolute inset-0 z-0 opacity-20">
+            <img src="https://picsum.photos/id/104/1920/1080" alt="柔和背景" class="w-full h-full object-cover">
+        </div>
+        <div class="z-10 md:w-1/2 flex justify-center order-1 md:order-2">
+            <div class="photo-frame w-full max-w-md">
+                <img src="https://picsum.photos/id/225/800/600" alt="第二次见面的场景" class="w-full h-auto">
+            </div>
+        </div>
+        <div class="container z-10 text-center md:w-1/2 order-2 md:order-1 mt-8 md:mt-0">
+            <h1 class="page-title">第二次见面</h1>
+            <p class="page-content mb-8">
+                特意安排的图书馆偶遇，我们一起看书，偶尔抬头相视一笑。离开时你说"下次再一起吧"，我的心像小鹿一样乱撞。
+            </p>
+            <div class="text-gray-600 font-medium">
+                <p>2023年3月26日 · 图书馆</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 第3页：第三次见面 -->
+    <div class="page translate-x-full" data-page="2" style="background-color: #E8F5E9;">
+        <div class="absolute inset-0 z-0 opacity-20">
+            <img src="https://picsum.photos/id/105/1920/1080" alt="柔和背景" class="w-full h-full object-cover">
+        </div>
+        <div class="container z-10 text-center md:w-1/2 mb-8 md:mb-0">
+            <h1 class="page-title">第三次见面</h1>
+            <p class="page-content mb-8">
+                第一次单独约会，我们在公园散步，聊了很多关于童年和梦想的话题。你说你喜欢看我笑的样子，那一刻我脸颊发烫。
+            </p>
+            <div class="text-gray-600 font-medium">
+                <p>2023年4月2日 · 城市公园</p>
+            </div>
+        </div>
+        <div class="z-10 md:w-1/2 flex justify-center">
+            <div class="grid grid-cols-2 gap-4 w-full max-w-md">
+                <div class="photo-frame col-span-2">
+                    <img src="https://picsum.photos/id/1060/800/500" alt="公园约会" class="w-full h-auto">
+                </div>
+                <div class="photo-frame">
+                    <img src="https://picsum.photos/id/1059/400/400" alt="一起散步" class="w-full h-auto">
+                </div>
+                <div class="photo-frame">
+                    <img src="https://picsum.photos/id/1062/400/400" alt="公园风景" class="w-full h-auto">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 第4页：第四次见面 -->
+    <div class="page translate-x-full" data-page="3" style="background-color: #E0F7FA;">
+        <div class="absolute inset-0 z-0 opacity-20">
+            <img src="https://picsum.photos/id/107/1920/1080" alt="柔和背景" class="w-full h-full object-cover">
+        </div>
+        <div class="z-10 md:w-1/2 flex justify-center order-1 md:order-2">
+            <div class="photo-frame w-full max-w-md">
+                <img src="https://picsum.photos/id/315/800/600" alt="第四次见面的场景" class="w-full h-auto">
+            </div>
+        </div>
+        <div class="container z-10 text-center md:w-1/2 order-2 md:order-1 mt-8 md:mt-0">
+            <h1 class="page-title">第四次见面</h1>
+            <p class="page-content mb-8">
+                一起去看了场喜剧电影，黑暗中听到你的笑声，觉得特别治愈。电影散场时人多，你下意识牵住了我的手，又很快松开，我们都红了脸。
+            </p>
+            <div class="text-gray-600 font-medium">
+                <p>2023年4月15日 · 电影院</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 第5页：第五次见面 -->
+    <div class="page translate-x-full" data-page="4" style="background-color: #F3E5F5;">
+        <div class="absolute inset-0 z-0 opacity-20">
+            <img src="https://picsum.photos/id/108/1920/1080" alt="柔和背景" class="w-full h-full object-cover">
+        </div>
+        <div class="container z-10 text-center md:w-1/2 mb-8 md:mb-0">
+            <h1 class="page-title">第五次见面</h1>
+            <p class="page-content mb-8">
+                你带我去了一家隐藏在小巷里的甜品店，味道很赞。我们分享了一份提拉米苏，手指不经意碰到一起。离开时，你说希望每周都能这样。
+            </p>
+            <div class="text-gray-600 font-medium">
+                <p>2023年4月29日 · 甜品店</p>
+            </div>
+        </div>
+        <div class="z-10 md:w-1/2 flex justify-center">
+            <div class="relative w-full max-w-md">
+                <div class="photo-frame absolute -top-4 -left-4 w-3/4">
+                    <img src="https://picsum.photos/id/292/600/800" alt="甜品店" class="w-full h-auto">
+                </div>
+                <div class="photo-frame absolute -bottom-4 -right-4 w-2/3">
+                    <img src="https://picsum.photos/id/431/600/400" alt="一起吃甜品" class="w-full h-auto">
+                </div>
+                <div class="w-full h-full aspect-square"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 第6页：第六次见面 -->
+    <div class="page translate-x-full" data-page="5" style="background-color: #E8EAF6;">
+        <div class="absolute inset-0 z-0 opacity-20">
+            <img src="https://picsum.photos/id/109/1920/1080" alt="柔和背景" class="w-full h-full object-cover">
+        </div>
+        <div class="z-10 md:w-1/2 flex justify-center order-1 md:order-2">
+            <div class="grid grid-cols-3 gap-3 w-full max-w-md">
+                <div class="photo-frame col-span-2 row-span-2">
+                    <img src="https://picsum.photos/id/1036/600/800" alt="展览现场" class="w-full h-full object-cover">
+                </div>
+                <div class="photo-frame">
+                    <img src="https://picsum.photos/id/1056/400/300" alt="艺术品" class="w-full h-auto">
+                </div>
+                <div class="photo-frame">
+                    <img src="https://picsum.photos/id/1058/400/300" alt="看展览" class="w-full h-auto">
+                </div>
+            </div>
+        </div>
+        <div class="container z-10 text-center md:w-1/2 order-2 md:order-1 mt-8 md:mt-0">
+            <h1 class="page-title">第六次见面</h1>
+            <p class="page-content mb-8">
+                一起参观艺术展，你认真讲解画作的样子特别有魅力。我们在一幅画前停留很久，你说画里的光影让你想起第一次见我时的场景。
+            </p>
+            <div class="text-gray-600 font-medium">
+                <p>2023年5月13日 · 艺术馆</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 第7页：第七次见面 -->
+    <div class="page translate-x-full" data-page="6" style="background-color: #FFEBEE;">
+        <div class="absolute inset-0 z-0 opacity-20">
+            <img src="https://picsum.photos/id/110/1920/1080" alt="柔和背景" class="w-full h-full object-cover">
+        </div>
+        <div class="container z-10 text-center md:w-1/2 mb-8 md:mb-0">
+            <h1 class="page-title">第七次见面</h1>
+            <p class="page-content mb-8">
+                一起去郊外看日落，夕阳把天空染成粉红色。你突然说"我好像喜欢上你了"，我愣了很久，然后笑着说"我也是"。这是我们心照不宣的秘密。
+            </p>
+            <div class="text-gray-600 font-medium">
+                <p>2023年5月20日 · 郊外山顶</p>
+            </div>
+        </div>
+        <div class="z-10 md:w-1/2 flex justify-center">
+            <div class="photo-frame w-full max-w-md">
+                <img src="https://picsum.photos/id/1039/800/600" alt="第七次见面看日落" class="w-full h-auto">
+            </div>
+        </div>
+    </div>
+
+    <!-- 第8页：第八次见面 -->
+    <div class="page translate-x-full" data-page="7" style="background-color: #FFF3E0;">
+        <div class="absolute inset-0 z-0 opacity-20">
+            <img src="https://picsum.photos/id/111/1920/1080" alt="柔和背景" class="w-full h-full object-cover">
+        </div>
+        <div class="container z-10 text-center w-full mb-8">
+            <h1 class="page-title">第八次见面</h1>
+            <p class="page-content max-w-2xl mb-10">
+                从第一次相遇到现在，八次见面，每一次都让我更喜欢你一点。在这家我们第一次相遇的咖啡馆，你正式向我表白。我们的故事，才刚刚开始...
+            </p>
+        </div>
+        <div class="z-10 w-full max-w-4xl">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="photo-frame">
+                    <img src="https://picsum.photos/id/1066/400/400" alt="回忆瞬间1" class="w-full h-auto">
+                </div>
+                <div class="photo-frame">
+                    <img src="https://picsum.photos/id/1074/400/400" alt="回忆瞬间2" class="w-full h-auto">
+                </div>
+                <div class="photo-frame">
+                    <img src="https://picsum.photos/id/1082/400/400" alt="回忆瞬间3" class="w-full h-auto">
+                </div>
+                <div class="photo-frame">
+                    <img src="https://picsum.photos/id/1083/400/400" alt="回忆瞬间4" class="w-full h-auto">
+                </div>
+            </div>
+        </div>
+        <div class="absolute bottom-20 z-10">
+            <button id="restartBtn" class="bg-white hover:bg-gray-100 text-gray-700 px-8 py-3 rounded-full transition-all duration-300 shadow-md">
+                <i class="fa fa-refresh mr-2"></i> 重温我们的故事
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // 当前页码
+        let currentPage = 0;
+        // 总页数
+        const totalPages = document.querySelectorAll('.page').length;
+        // DOM元素
+        const pages = document.querySelectorAll('.page');
+        const indicators = document.querySelectorAll('.page-indicator');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const restartBtn = document.getElementById('restartBtn');
+        const bgMusic = document.getElementById('bgMusic');
+        const musicToggle = document.getElementById('musicToggle');
+
+        // 更新页面显示
+        function updatePage() {
+            // 更新页面位置
+            pages.forEach((page, index) => {
+                if (index < currentPage) {
+                    page.style.transform = 'translateX(-100%)';
+                } else if (index === currentPage) {
+                    page.style.transform = 'translateX(0)';
+                } else {
+                    page.style.transform = 'translateX(100%)';
+                }
+            });
+
+            // 更新指示器
+            indicators.forEach((indicator, index) => {
+                if (index === currentPage) {
+                    indicator.classList.add('active');
+                } else {
+                    indicator.classList.remove('active');
+                }
+            });
+
+            // 控制导航按钮显示
+            prevBtn.style.display = currentPage === 0 ? 'none' : 'flex';
+            nextBtn.style.display = currentPage === totalPages - 1 ? 'none' : 'flex';
+        }
+
+        // 下一页
+        function nextPage() {
+            if (currentPage < totalPages - 1) {
+                currentPage++;
+                updatePage();
+            }
+        }
+
+        // 上一页
+        function prevPage() {
+            if (currentPage > 0) {
+                currentPage--;
+                updatePage();
+            }
+        }
+
+        // 跳转到指定页
+        function goToPage(pageIndex) {
+            currentPage = pageIndex;
+            updatePage();
+        }
+
+        // 音乐控制
+        function toggleMusic() {
+            if (bgMusic.paused) {
+                bgMusic.play().catch(err => {
+                    console.log('播放需要用户交互:', err);
+                });
+                musicToggle.innerHTML = '<i class="fa fa-pause"></i>';
+            } else {
+                bgMusic.pause();
+                musicToggle.innerHTML = '<i class="fa fa-music"></i>';
+            }
+        }
+
+        // 事件监听
+        nextBtn.addEventListener('click', nextPage);
+        prevBtn.addEventListener('click', prevPage);
+        restartBtn.addEventListener('click', () => goToPage(0));
+        musicToggle.addEventListener('click', toggleMusic);
+
+        // 点击指示器跳页
+        indicators.forEach(indicator => {
+            indicator.addEventListener('click', () => {
+                const pageIndex = parseInt(indicator.getAttribute('data-page'));
+                goToPage(pageIndex);
+            });
+        });
+
+        // 键盘控制
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                nextPage();
+            } else if (e.key === 'ArrowLeft') {
+                prevPage();
+            }
+        });
+
+        // 鼠标滚轮控制
+        document.addEventListener('wheel', (e) => {
+            if (e.deltaY > 0) {
+                nextPage();
+            } else {
+                prevPage();
+            }
+        });
+
+        // 触摸滑动控制
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, false);
+
+        document.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, false);
+
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            if (touchStartX - touchEndX > swipeThreshold) {
+                nextPage();
+            } else if (touchEndX - touchStartX > swipeThreshold) {
+                prevPage();
+            }
+        }
+
+        // 初始化
+        updatePage();
+        
+        // 尝试播放音乐
+        window.addEventListener('click', () => {
+            bgMusic.play().catch(err => {
+                console.log('用户交互后尝试播放:', err);
+            });
+        }, { once: true });
+    </script>
+</body>
+</html>
+    
